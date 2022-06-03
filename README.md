@@ -1,0 +1,1 @@
+# Prisma DDD Generator
