@@ -10,7 +10,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator ddd {
+generator dbml {
   provider    = "node ./dist/generator.js"
   mapToDbSchema = "false"
 }

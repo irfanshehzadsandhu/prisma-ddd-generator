@@ -4,8 +4,8 @@ import { generate } from './ddd-generator';
 
 generatorHandler({
   onManifest: () => ({
-    defaultOutput: './dbml',
-    prettyName: 'DBML Schema',
+    defaultOutput: '../App',
+    prettyName: 'DDD',
   }),
   onGenerate: generate,
 });

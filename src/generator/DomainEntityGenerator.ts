@@ -1,10 +1,11 @@
 import { DMMF } from '@prisma/generator-helper';
-let ejs = require('ejs');
+const ejs = require('ejs');
+import {readFileSync} from "fs";
 
 
 export function generateEntity(model: DMMF.Model): string {
-  let people = ['geddy', 'neil', 'alex'];
-  return ejs.render('<%= people.join(", "); %>', {people: people});
+  const entityContent = readFileSync(__dirname + '/templates/Domain/Entity.ejs', 'utf8');
+  return ejs.render(entityContent, {name: model.name});
 }
 
 
