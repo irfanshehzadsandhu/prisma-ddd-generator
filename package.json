@@ -1,12 +1,10 @@
 {
-  "name": "prisma-ddd-generator",
-  "version": "0.9.1",
+  "name": "ddd-generator",
+  "version": "0.0.1",
   "description": "Prisma DDDD Generator",
   "bin": "./dist/generator.js",
   "scripts": {
-    "build": "tsc -p .",
-    "postbuild": "copyfiles -u 1 **/**/*.ejs dist/generator",
-    "dev": "tsc -p . && npx prisma generate"
+    "build": "tsc -p ."
   },
   "keywords": [
     "prisma",
@@ -19,20 +17,15 @@
     }
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/notiz-dev/prisma-dbml-generator.git"
-  },
-  "bugs": {
-    "url": "https://github.com/notiz-dev/prisma-dbml-generator/issues"
-  },
   "dependencies": {
     "@prisma/generator-helper": "3.11.0",
     "@prisma/sdk": "3.11.0",
-    "ejs": "^3.1.8"
+    "ejs": "^3.1.8",
+    "hygen": "^6.2.7"
   },
   "devDependencies": {
     "@prisma/client": "3.11.0",
+    "@prisma/migrate": "^3.14.0",
     "@types/jest": "^27.4.0",
     "@types/node": "14.17.0",
     "copyfiles": "^2.4.1",
