@@ -3,6 +3,7 @@ import render from "hygen/dist/render"
 import injectOp from "hygen/dist/ops/inject"
 import * as path from "path";
 import {promises} from 'fs';
+const fse = require('fs-extra');
 
 const {writeFile} = promises;
 
@@ -20,7 +21,8 @@ const runParams = async () => {
   for (let renderedFile of renderedFiles) {
     console.log("&&&&&&&&&&&&&&", renderedFile)
     //await injectOp(renderedFile, {dry: false}, {cwd: path.join(__dirname, '_templates')});
-    await writeFile(renderedFile.attributes.to, renderedFile.body)
+    //await writeFile(renderedFile.attributes.to, renderedFile.body)
+    await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
   }
 
 
