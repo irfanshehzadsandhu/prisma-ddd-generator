@@ -25,6 +25,7 @@ const generateFiles = async (parameters: string[], name: string) => {
   }, {});
   for (let renderedFile of renderedFiles) {
     const fileExists = await fse.pathExists(renderedFile.attributes.to);
+
     if (fileExists) {
       const prompt = new Confirm({
         name: 'question',
@@ -56,9 +57,9 @@ const runGenerator = async () => {
         // @ts-ignore
         const type = castDataType[field.type];
         parameters.push(`${field.name}:${type}`);
-        await generateFiles(parameters, model.name);
       }
     }
+    await generateFiles(parameters, model.name);
   }
 
 
