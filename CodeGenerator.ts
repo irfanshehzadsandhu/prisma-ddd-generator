@@ -19,7 +19,31 @@ const castDataType = {
 
 const generateFiles = async (parameters: string[], name: string) => {
   const renderedFiles = await render({
-    actionfolder: path.join(__dirname, '_templates'),
+    actionfolder: path.join(__dirname, '_templates', 'scaffold', 'actions'),
+    parameters: parameters,
+    name: name
+  }, {});
+  for (let renderedFile of renderedFiles) {
+    const fileExists = await fse.pathExists(renderedFile.attributes.to);
+
+    if (fileExists) {
+      const prompt = new Confirm({
+        name: 'question',
+        message: `${renderedFile.attributes.to} already exists do you want to override?`
+      });
+      const questionResponse = await prompt.run();
+      if (questionResponse) {
+        await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
+      }
+    } else {
+      await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
+    }
+  }
+}
+
+const generatePredefinedFiles = async (parameters: string[], name: string) => {
+  const renderedFiles = await render({
+    actionfolder: path.join(__dirname, '_templates', 'predefined', 'actions'),
     parameters: parameters,
     name: name
   }, {});
@@ -61,7 +85,6 @@ const runGenerator = async () => {
     }
     await generateFiles(parameters, model.name);
   }
-
-
+  await generatePredefinedFiles([], "");
 }
 runGenerator();
