@@ -1,5 +1,5 @@
 ---
-to: App/HTTP/Routes/Api/V1/<%= name%>/<%= name%>/<%= name%>.ts
+to: App/HTTP/Routes/Api/V1/<%= name%>/<%= name%>.ts
 ---
 import * as express from "express";
 import {WithErrorHandling} from "../../../../Errors/WithErrorHandling";

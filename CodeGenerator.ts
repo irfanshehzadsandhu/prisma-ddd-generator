@@ -41,11 +41,10 @@ const generateFiles = async (parameters: string[], name: string) => {
   }
 }
 
-const generatePredefinedFiles = async (parameters: string[], name: string) => {
+const generatePredefinedFiles = async (names: string[]) => {
   const renderedFiles = await render({
     actionfolder: path.join(__dirname, '_templates', 'predefined', 'actions'),
-    parameters: parameters,
-    name: name
+    names: names
   }, {});
   for (let renderedFile of renderedFiles) {
     const fileExists = await fse.pathExists(renderedFile.attributes.to);
@@ -71,7 +70,7 @@ const runGenerator = async () => {
   const schemaPath = await getSchemaPathAndPrint(schemaRelativePath);
   const schema = await fs.readFile(schemaPath, 'utf-8');
   const localDmmf = await getDMMF({datamodel: schema});
-
+  const names = []
   for (let model of localDmmf.datamodel.models) {
     let parameters = []
     const fields = model.fields;
@@ -83,8 +82,9 @@ const runGenerator = async () => {
         parameters.push(`${field.name}:${type}`);
       }
     }
+    names.push(model.name);
     await generateFiles(parameters, model.name);
   }
-  await generatePredefinedFiles([], "");
+  await generatePredefinedFiles(names);
 }
 runGenerator();
