@@ -9,12 +9,7 @@ const entitiesParams = {
 
 }
 
-const castDataType = {
-  "Int": "number",
-  "String": "string",
-  "Bool": "Boolean",
-  "DateTime": "Date"
-}
+
 
 const readSchema = async () => {
   schemaRelativePath = path.join(__dirname,"../../../prisma/schema.prisma");

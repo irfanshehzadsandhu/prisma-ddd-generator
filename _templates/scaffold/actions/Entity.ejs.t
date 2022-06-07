@@ -3,15 +3,15 @@ to: App/Domain/<%- name%>/<%= name%>Entity.ts
 ---
 <% let constructorParams = ""-%>
 <% let methodParams = "" -%>
-<%const parametersArray = parameters.split(' ')-%>
+
 import BaseEntity from "./BaseEntity";
 class <%- name%>Entity extends BaseEntity {
-<%for(let i=0;i<parametersArray.length;i++){-%>
- <% if(parametersArray[i].includes(':')) { -%>
-  <%- `public ${parametersArray[i].split(':')[0]}: ${parametersArray[i].split(':')[1]};` -%>
-  <% constructorParams = constructorParams.concat(`${parametersArray[i].split(':')[0]}: ${parametersArray[i].split(':')[1]}`) -%>
-  <% methodParams = methodParams.concat(`obj.${parametersArray[i].split(':')[0]}`) -%>
-  <% if (i!==parametersArray.length-1) { -%>
+<%for(let i=0;i<parameters.length;i++){-%>
+ <% if(parameters[i].includes(':')) { -%>
+  <%- `public ${parameters[i].split(':')[0]}: ${parameters[i].split(':')[1]};` -%>
+  <% constructorParams = constructorParams.concat(`${parameters[i].split(':')[0]}: ${parameters[i].split(':')[1]}`) -%>
+  <% methodParams = methodParams.concat(`obj.${parameters[i].split(':')[0]}`) -%>
+  <% if (i!==parameters.length-1) { -%>
    <% constructorParams=constructorParams.concat(', ') -%>
    <% methodParams=methodParams.concat(', ') -%>
   <% } -%> 
@@ -20,8 +20,8 @@ class <%- name%>Entity extends BaseEntity {
 
    constructor(<%- constructorParams -%>) {
      super();   
- <%for(let i=0;i<parametersArray.length;i++){-%>
-    <%- `this.${parametersArray[i].split(':')[0]} = ${parametersArray[i].split(':')[0]};` -%>   
+ <%for(let i=0;i<parameters.length;i++){-%>
+    <%- `this.${parameters[i].split(':')[0]} = ${parameters[i].split(':')[0]};` -%>   
  <% } -%>
   }
 

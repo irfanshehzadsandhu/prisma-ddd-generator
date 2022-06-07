@@ -1,7 +1,6 @@
 ---
 to: App/Infrastructure/Database/Models/<%= name%>.ts
 ---
-<% const parametersArray = parameters.split(' ')-%>
 const {Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -13,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
 
     <%- name-%>.init(
       {
-         <%for(let i=0;i<parametersArray.length;i++){-%>
-<%- `${parametersArray[i].split(':')[0]}: DataTypes.${parametersArray[i].split(':')[1].toUpperCase()},`%>
+         <%for(let i=0;i<parameters.length;i++){-%>
+<%- `${parameters[i].split(':')[0]}: DataTypes.${parameters[i].split(':')[1].toUpperCase()},`%>
          <% } -%>   
       },
       {
