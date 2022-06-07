@@ -1,5 +1,5 @@
 ---
-to: App/Domain/<%- name%>/<%= name%>Entity.ts
+to: App/Domain/Entities/<%- name%>/<%= name%>Entity.ts
 ---
 <% let constructorParams = ""-%>
 <% let methodParams = "" -%>
