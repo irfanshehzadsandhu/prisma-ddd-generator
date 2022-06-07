@@ -3,8 +3,12 @@ const {getSchemaPathAndPrint} = require('@prisma/migrate');
 import render from "hygen/dist/render"
 import * as path from "path";
 
+const {Confirm} = require('enquirer');
+
+
 const fs = require('fs').promises;
 const fse = require('fs-extra');
+
 
 const castDataType = {
   "Int": "number",
@@ -13,14 +17,21 @@ const castDataType = {
   "DateTime": "Date"
 }
 
-const generateFile = async (parameters: string[], name: string) => {
+const generateFiles = async (parameters: string[], name: string) => {
   const renderedFiles = await render({
     actionfolder: path.join(__dirname, '_templates'),
     parameters: parameters,
     name: name
   }, {});
   for (let renderedFile of renderedFiles) {
-    await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
+    const prompt = new Confirm({
+      name: 'question',
+      message: `${renderedFile.attributes.to} already exists do you want to override?`
+    });
+    const questionResponse = await prompt.run();
+    if (questionResponse) {
+      await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
+    }
   }
 }
 
@@ -40,7 +51,7 @@ const runGenerator = async () => {
         // @ts-ignore
         const type = castDataType[field.type];
         parameters.push(`${field.name}:${type}`);
-        generateFile(parameters, model.name);
+        await generateFiles(parameters, model.name);
       }
     }
   }
