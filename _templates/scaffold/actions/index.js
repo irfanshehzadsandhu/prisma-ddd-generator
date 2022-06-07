@@ -36,11 +36,12 @@ const readSchema = async () => {
   }
 }
 
-readSchema();
+//readSchema();
 
 
 module.exports = {
   params: ({args}) => {
+    console.log("##################",args);
     return {parameters: parameters, name: "Post"}
   }
 }
