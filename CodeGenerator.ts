@@ -24,12 +24,17 @@ const generateFiles = async (parameters: string[], name: string) => {
     name: name
   }, {});
   for (let renderedFile of renderedFiles) {
-    const prompt = new Confirm({
-      name: 'question',
-      message: `${renderedFile.attributes.to} already exists do you want to override?`
-    });
-    const questionResponse = await prompt.run();
-    if (questionResponse) {
+    const fileExists = await fse.pathExists(renderedFile.attributes.to);
+    if (fileExists) {
+      const prompt = new Confirm({
+        name: 'question',
+        message: `${renderedFile.attributes.to} already exists do you want to override?`
+      });
+      const questionResponse = await prompt.run();
+      if (questionResponse) {
+        await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
+      }
+    } else {
       await fse.outputFile(renderedFile.attributes.to, renderedFile.body);
     }
   }
