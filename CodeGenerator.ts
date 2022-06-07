@@ -40,7 +40,6 @@ const runGenerator = async () => {
         // @ts-ignore
         const type = castDataType[field.type];
         parameters.push(`${field.name}:${type}`);
-        console.log("***************", `${field.name}:${type}`, model.name);
         generateFile(parameters, model.name);
       }
     }
